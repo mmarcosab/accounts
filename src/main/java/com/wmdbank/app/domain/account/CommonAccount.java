@@ -1,4 +1,4 @@
-package com.wmdbank.app.domain;
+package com.wmdbank.app.domain.account;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -14,29 +14,15 @@ public class CommonAccount implements Account {
     private List<Long> creditCardIds;
     private Long debitCardId;
     private String password;
+    private AccountStatus status;
 
     protected CommonAccount() {}
 
     public CommonAccount(
-            Long id,
-            Long number,
-            Long digit,
-            Long clientId,
-            List<BigDecimal> entrances,
-            List<BigDecimal> exits,
-            List<Long> creditCardIds,
-            Long debitCardId,
-            String password
+            final Long clientId,
+            final String password
     ) {
-        this.id = id;
-        this.number = number;
-        this.digit = digit;
-        this.clientId = clientId;
-        this.entrances = entrances;
-        this.exits = exits;
-        this.creditCardIds = creditCardIds;
-        this.debitCardId = debitCardId;
-        this.password = password;
+        create(clientId, password);
     }
 
     @Override
@@ -84,40 +70,56 @@ public class CommonAccount implements Account {
         return password;
     }
 
-    protected void setId(Long id) {
+    @Override
+    public AccountStatus getStatus() {
+        return status;
+    }
+
+    protected void setId(final Long id) {
         this.id = id;
     }
 
-    protected void setNumber(Long number) {
+    protected void setNumber(final Long number) {
         this.number = number;
     }
 
-    protected void setDigit(Long digit) {
+    protected void setDigit(final Long digit) {
         this.digit = digit;
     }
 
-    protected void setClientId(Long clientId) {
+    protected void setClientId(final Long clientId) {
         this.clientId = clientId;
     }
 
-    protected void setEntrances(List<BigDecimal> entrances) {
+    protected void setEntrances(final List<BigDecimal> entrances) {
         this.entrances = entrances;
     }
 
-    protected void setExits(List<BigDecimal> exits) {
+    protected void setExits(final List<BigDecimal> exits) {
         this.exits = exits;
     }
 
-    protected void setCreditCardIds(List<Long> creditCardIds) {
+    protected void setCreditCardIds(final List<Long> creditCardIds) {
         this.creditCardIds = creditCardIds;
     }
 
-    protected void setDebitCardId(Long debitCardId) {
+    protected void setDebitCardId(final Long debitCardId) {
         this.debitCardId = debitCardId;
     }
 
-    protected void setPassword(String password) {
+    protected void setPassword(final String password) {
         this.password = password;
+    }
+
+    protected void setStatus(final AccountStatus accountStatus) {
+        this.status = accountStatus;
+    }
+
+    public static Account create(final Long clientId, final String password) {
+        CommonAccount account = new CommonAccount();
+        account.setClientId(clientId);
+        account.setPassword(password);
+        return null;
     }
 
 }
@@ -134,48 +136,53 @@ class Builder {
         return new Builder();
     }
 
-    public Builder withID(Long id) {
+    public Builder withID(final Long id) {
         this.commonAccount.setId(id);
         return this;
     }
 
-    public Builder withNumber(Long number) {
+    public Builder withNumber(final Long number) {
         this.commonAccount.setNumber(number);
         return this;
     }
 
-    public Builder withDigit(Long digit) {
+    public Builder withDigit(final Long digit) {
         this.commonAccount.setDigit(digit);
         return this;
     }
 
-    public Builder withClientId(Long clientId) {
+    public Builder withClientId(final Long clientId) {
         this.commonAccount.setClientId(clientId);
         return this;
     }
 
-    public Builder withEntrances(List<BigDecimal> entrances) {
+    public Builder withEntrances(final List<BigDecimal> entrances) {
         this.commonAccount.setEntrances(entrances);
         return this;
     }
 
-    public Builder withExits(List<BigDecimal> exits) {
+    public Builder withExits(final List<BigDecimal> exits) {
         this.commonAccount.setExits(exits);
         return this;
     }
 
-    public Builder withCreditCardIds(List<Long> creditCardIds) {
+    public Builder withCreditCardIds(final List<Long> creditCardIds) {
         this.commonAccount.setCreditCardIds(creditCardIds);
         return this;
     }
 
-    public Builder withDebitCardId(Long debitCardId) {
+    public Builder withDebitCardId(final Long debitCardId) {
         this.commonAccount.setDebitCardId(debitCardId);
         return this;
     }
 
-    public Builder withPassword(String password) {
+    public Builder withPassword(final String password) {
         this.commonAccount.setPassword(password);
+        return this;
+    }
+
+    public Builder withStatus(final AccountStatus accountStatus) {
+        this.commonAccount.setStatus(accountStatus);
         return this;
     }
 
